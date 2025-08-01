@@ -1,14 +1,15 @@
 1. Create git repo and clone it in local.
 2. Create mycode.py and add code to it. (it will save a csv file to a new "data" folder)
-    pip install pandas
-
-
+    #pip install pandas
 3. Do a git add-commit-push before initializing dvc.
-# pip install dvc
+    # pip install dvc
 4. Now we do "dvc init" (creates .dvcignore, .dvc)
-5. Now do "mkdir S3" (creates a new S3 directory)
-6. Now we do "dvc remote add -d myremote S3"
-7. Next "dvc add data/" 
+5. Now do (creates a new S3 directory)
+    #mkdir S3" 
+6. Now we do 
+    #dvc remote add -d myremote S3
+7. Next #
+    dvc add data/ 
    Now it will ask to do: ("git rm -r --cached 'data'" and "git commit -m "stop tracking data"")
    Because initially we were tracking data/ folder from git so now we remove it for DVC to handle.
 8. Again we do "dvc add data/" (creates data.dvc) then "git add .gitignore data.dvc"
@@ -18,4 +19,26 @@
 11. Again - - "dvc commit" and then "dvc push"
 12. Then git add-commit-push (we're saving V2 of our data at this point)
 13. Check dvc/git status, everything should be upto date.
-14. Now repeat step 10-12 for v3 of data.
+14. Now repeat step 10-12 for v3 of data.git 
+
+
+
+rollback to older version
+
+#git log --oneline
+188a2ad (HEAD -> main, origin/main, origin/HEAD) fourth version of data changed
+37f25ca second / third version of data changed
+2639c92 first commit before dvc
+99219a5 first dvc version
+2c52311 stop git to track data folder to attach with dvc
+c99c485 first commit before dvc
+1d0c96e Initial commit
+
+git checkout 99219a5 #commit-id
+
+dvc pull
+
+
+rollback to Newer version
+git checkout main
+dvc pull
